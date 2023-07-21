@@ -31,6 +31,8 @@ class IntegerModRingElement():
         if self.is_calcable(other):
             return self.__class__((self.value * other.value) % self.order, self.parent)
         raise TypeError(f"Unsupported operand for *: '{str(self.parent)}' and '{str(other.parent)}'")
+    def __pow__(self, exponent: int):
+        return self.__class__(pow(self.value, exponent, self.order), self.parent)
 
     # --------------------------------------------------------------------------------------------
     # Comparison Operators
