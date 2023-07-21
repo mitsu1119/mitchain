@@ -19,6 +19,6 @@ class FiniteField(IntegerModRing):
         return FpElement(value, self)
 
     def __str__(self):
-        return f"finite field of order {self.order}"
+        return f"Finite Field of order {self.order}"
 
 GF = FiniteField

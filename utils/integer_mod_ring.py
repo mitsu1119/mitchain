@@ -74,6 +74,6 @@ class IntegerModRing():
         return True
 
     def __str__(self):
-        return f"ring of integers modulo {self.order}"
+        return f"Ring of integers modulo {self.order}"
 
 Zmod = IntegerModRing
