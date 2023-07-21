@@ -1,18 +1,18 @@
 # --------------------------------------------------------------------------------------------
 # Factory Element
 # --------------------------------------------------------------------------------------------
-class IntegerModRingElement:
+class IntegerModRingElement():
     def __init__(self, value: int, parent):
-        self.__parent = parent
-        self.__order = parent.order()
-        self.value = value % self.__order
+        self.parent = parent
+        self.order = parent.order
+        self.value = value % self.order
 
     # --------------------------------------------------------------------------------------------
     # Calculatable Type
     # --------------------------------------------------------------------------------------------
     def is_calcable(self, other):
         if isinstance(other, self.__class__):
-            if self.__parent == other.__parent:
+            if self.parent == other.parent:
                 return True
         return False
 
@@ -21,16 +21,16 @@ class IntegerModRingElement:
     # --------------------------------------------------------------------------------------------
     def __add__(self, other):
         if self.is_calcable(other):
-            return IntegerModRingElement((self.value + other.value) % self.__order, self.__parent)
-        raise TypeError(f"Unsupported operand for +: '{str(self.__parent)}' and '{str(other.__parent)}'")
+            return self.__class__((self.value + other.value) % self.order, self.parent)
+        raise TypeError(f"Unsupported operand for +: '{str(self.parent)}' and '{str(other.parent)}'")
     def __sub__(self, other):
         if self.is_calcable(other):
-            return IntegerModRingElement((self.value - other.value) % self.__order, self.__parent)
-        raise TypeError(f"Unsupported operand for -: '{str(self.__parent)}' and '{str(other.__parent)}'")
+            return self.__class__((self.value - other.value) % self.order, self.parent)
+        raise TypeError(f"Unsupported operand for -: '{str(self.parent)}' and '{str(other.parent)}'")
     def __mul__(self, other):
         if self.is_calcable(other):
-            return IntegerModRingElement((self.value * other.value) % self.__order, self.__parent)
-        raise TypeError(f"Unsupported operand for *: '{str(self.__parent)}' and '{str(other.__parent)}'")
+            return self.__class__((self.value * other.value) % self.order, self.parent)
+        raise TypeError(f"Unsupported operand for *: '{str(self.parent)}' and '{str(other.parent)}'")
 
     # --------------------------------------------------------------------------------------------
     # Comparison Operators
@@ -38,12 +38,12 @@ class IntegerModRingElement:
     def __eq__(self, other):
         if self.is_calcable(other):
             return (self.value == other.value)
-        raise TypeError(f"Unsupported operand for ==: '{str(self.__parent)}' and '{str(other.__parent)}'")
+        raise TypeError(f"Unsupported operand for ==: '{str(self.parent)}' and '{str(other.parent)}'")
     
     def __ne__(self, other):
         if self.is_calcable(other):
             return (self.value != other.value)
-        raise TypeError(f"Unsupported operand for !=: '{str(self.__parent)}' and '{str(other.__parent)}'")
+        raise TypeError(f"Unsupported operand for !=: '{str(self.parent)}' and '{str(other.parent)}'")
 
     # --------------------------------------------------------------------------------------------
     # Other Special Method
@@ -54,27 +54,24 @@ class IntegerModRingElement:
 # --------------------------------------------------------------------------------------------
 # Type Factory
 # --------------------------------------------------------------------------------------------
-class IntegerModRing:
+class IntegerModRing():
     def __init__(self, order: int):
-        self.__order = order
-
-    def order(self):
-        return self.__order
+        self.order = order
 
     def __call__(self, value):
         return IntegerModRingElement(value, self)
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return (self.__order == other.__order)
+            return (self.order == other.order)
         return False
     
     def __ne__(self, other):
         if isinstance(other, self.__class__):
-            return (self.__order != other.__order)
+            return (self.order != other.order)
         return True
 
     def __str__(self):
-        return f"ring of integers modulo {self.__order}"
+        return f"ring of integers modulo {self.order}"
 
 Zmod = IntegerModRing
