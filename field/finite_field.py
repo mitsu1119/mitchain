@@ -38,6 +38,22 @@ class FpElement:
     def inv(self):
         return FpElement(pow(self.value, -1, self.__order), self.__parent)
 
+    # --------------------------------------------------------------------------------------------
+    # Comparison Operators
+    # --------------------------------------------------------------------------------------------
+    def __eq__(self, other):
+        if self.is_calcable(other):
+            return (self.value == other.value)
+        raise TypeError(f"Unsupported operand for ==: '{str(self.__parent)}' and '{str(other.__parent)}'")
+    
+    def __ne__(self, other):
+        if self.is_calcable(other):
+            return (self.value != other.value)
+        raise TypeError(f"Unsupported operand for !=: '{str(self.__parent)}' and '{str(other.__parent)}'")
+
+    # --------------------------------------------------------------------------------------------
+    # Other Special Method
+    # --------------------------------------------------------------------------------------------
     def __str__(self):
         return str(self.value)
 
