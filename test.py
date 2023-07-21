@@ -50,3 +50,9 @@ for p in ps:
     for i in range(1, p):
         print(Fp(i)**(p - 1), end=" ")
     print("]")
+
+# test p16 (practice 8)
+Fp = GF(31)
+assert Fp(3) / Fp(24) == Fp(4)
+assert Fp(17)**(-3) == Fp(29)
+assert Fp(4)**(-4) * Fp(11) == Fp(13)
