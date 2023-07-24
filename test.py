@@ -61,3 +61,15 @@ Fp = GF(13)
 E = EllipticCurve(Fp, 2, 2)
 P = E(2, 1)
 print(P)
+
+# test p28 (practice 1)
+E = EllipticCurve(float, 5, 7)
+assert not E.is_on_curve(2, 4)
+assert E.is_on_curve(-1, -1) 
+assert E.is_on_curve(18, 77)
+assert not E.is_on_curve(5, 7)
+
+# test p35
+P = E(18, 77)
+Q = -P
+assert P + Q == E.zero()
