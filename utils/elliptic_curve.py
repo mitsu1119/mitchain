@@ -43,9 +43,25 @@ class EllipticCurvePoint:
                 return other
             if other.is_zero():
                 return self
-            if other == -self:
+            if self == -other:
                 return self.parent.zero()
-        raise TypeError(f"Unsupported operand for +: '{str(self.parent)}' and '{str(other.parent)}'")
+            if self == other:
+                if self.y == self.parent.base(0):
+                    return self.parent.zero()
+                lam = (3 * self.x * self.x + self.parent.a) / (2 * self.y)
+                xx = pow(lam, 2) - 2 * self.x
+                yy = lam * (self.x - xx) - self.y
+                return self.__class__(xx, yy, 1, self.parent)
+            if self.x != other.x:
+                lam = (other.y - self.y) / (other.x - self.x)
+                xx = pow(lam, 2) - self.x - other.x
+                yy = lam * (self.x - xx) - self.y
+                return self.__class__(xx, yy, 1, self.parent)
+        raise TypeError(f"Unsupported operand for +: '{str(self.parent)}' and '{str(other.parent)}'") 
+    def __sub__(self, other):
+        if self.is_calcable(other):
+            return self + (-other)
+        raise TypeError(f"Unsupported operand for -: '{str(self.parent)}' and '{str(other.parent)}'")
 
     # --------------------------------------------------------------------------------------------
     # Unit Operators

@@ -73,3 +73,14 @@ assert not E.is_on_curve(5, 7)
 P = E(18, 77)
 Q = -P
 assert P + Q == E.zero()
+
+# test p37 (practice 4)
+E = EllipticCurve(float, 5, 7)
+P = E(2, 5)
+Q = E(-1, -1)
+assert P + Q == E(3, -7)
+
+# test p40 (practice 6)
+E = EllipticCurve(float, 5, 7)
+P = E(-1, -1)
+assert P + P == E(18, 77)
