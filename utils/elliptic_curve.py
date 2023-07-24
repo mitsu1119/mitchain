@@ -54,6 +54,22 @@ class EllipticCurvePoint:
     def inv(self):
         return self.__class__(self.x, -self.y, self.z, self.parent)
 
+    # --------------------------------------------------------------------------------------------
+    # Comparison Operators
+    # --------------------------------------------------------------------------------------------
+    def __eq__(self, other):
+        if self.is_calcable(other):
+            return (self.x, self.y, self.z) == (other.x, other.y, other.z)
+        raise TypeError(f"Unsupported operand for ==: '{str(self.parent)}' and '{str(other.parent)}'")
+    
+    def __ne__(self, other):
+        if self.is_calcable(other):
+            return (self.x, self.y, self.z) != (other.x, other.y, other.z)
+        raise TypeError(f"Unsupported operand for !=: '{str(self.parent)}' and '{str(other.parent)}'")
+
+    # --------------------------------------------------------------------------------------------
+    # Other Special Method
+    # --------------------------------------------------------------------------------------------
     def __str__(self):
         return f"({self.x} : {self.y} : {self.z})"
 

@@ -1,6 +1,9 @@
-from field import *
+from utils import *
 
+p = 13
 Fp = GF(13)
-a = Fp(10)
-b = Fp(20)
-print(a / b)
+E = EllipticCurve(Fp, 1, 2)
+P = E(2, 5)
+O = E.zero()
+
+print(P == P)
