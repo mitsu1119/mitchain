@@ -2,10 +2,14 @@
 # Factory Element
 # --------------------------------------------------------------------------------------------
 class IntegerModRingElement():
-    def __init__(self, value: int, parent):
+    def __init__(self, value, parent):
         self.parent = parent
         self.order = parent.order
-        self.value = value % self.order
+
+        if isinstance(value, self.__class__):
+            self.value = value.value % self.order
+        else:
+            self.value = value % self.order
 
     # --------------------------------------------------------------------------------------------
     # Calculatable Type
@@ -33,6 +37,14 @@ class IntegerModRingElement():
         raise TypeError(f"Unsupported operand for *: '{str(self.parent)}' and '{str(other.parent)}'")
     def __pow__(self, exponent: int):
         return self.__class__(pow(self.value, exponent, self.order), self.parent)
+
+    # --------------------------------------------------------------------------------------------
+    # Unit Operators
+    # --------------------------------------------------------------------------------------------
+    def __pos__(self):
+        return self
+    def __neg__(self):
+        return self.__class__(self.order - self.value, self.parent)
 
     # --------------------------------------------------------------------------------------------
     # Comparison Operators

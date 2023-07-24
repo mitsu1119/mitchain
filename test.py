@@ -56,3 +56,8 @@ Fp = GF(31)
 assert Fp(3) / Fp(24) == Fp(4)
 assert Fp(17)**(-3) == Fp(29)
 assert Fp(4)**(-4) * Fp(11) == Fp(13)
+
+Fp = GF(13)
+E = EllipticCurve(Fp, 2, 2)
+P = E(2, 1)
+print(P)
