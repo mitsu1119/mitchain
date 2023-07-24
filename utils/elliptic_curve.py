@@ -41,17 +41,18 @@ class EllipticCurvePoint:
         if self.is_calcable(other):
             if self.is_zero():
                 return other
-            elif other.is_zero():
+            if other.is_zero():
                 return self
+            if other == -self:
+                return self.parent.zero()
         raise TypeError(f"Unsupported operand for +: '{str(self.parent)}' and '{str(other.parent)}'")
-    def __sub__(self, other):
-        if self.is_calcable(other):
-            if self.is_zero():
-                return other.inv()
-            elif other.is_zero():
-                return self
-        raise TypeError(f"Unsupported operand for -: '{str(self.parent)}' and '{str(other.parent)}'")
-    def inv(self):
+
+    # --------------------------------------------------------------------------------------------
+    # Unit Operators
+    # --------------------------------------------------------------------------------------------
+    def __pos__(self):
+        return self
+    def __neg__(self):
         return self.__class__(self.x, -self.y, self.z, self.parent)
 
     # --------------------------------------------------------------------------------------------
