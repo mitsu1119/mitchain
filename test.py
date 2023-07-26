@@ -84,3 +84,14 @@ assert P + Q == E(3, -7)
 E = EllipticCurve(float, 5, 7)
 P = E(-1, -1)
 assert P + P == E(18, 77)
+
+# ------------------------------------
+
+# test p45 (practice 1)
+Fp = GF(223)
+E = EllipticCurve(Fp, 0, 7)
+assert E.is_on_curve(192, 105)
+assert E.is_on_curve(17, 56)
+assert not E.is_on_curve(200, 119)
+assert E.is_on_curve(1, 193)
+assert not E.is_on_curve(42, 99)
