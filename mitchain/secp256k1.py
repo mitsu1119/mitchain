@@ -1,5 +1,12 @@
 from utils import *
 
+class SECP256K1Point(EllipticCurvePoint):
+    # --------------------------------------------------------------------------------------------
+    # Other Special Method
+    # --------------------------------------------------------------------------------------------
+    def __repr__(self):
+        return "({:x} : {:x} : {:x})".format(self.x, self.y, self.z)
+
 class SECP256K1(EllipticCurve):
     def __init__(self):
         p = pow(2, 256) - pow(2, 32) - 977
@@ -10,6 +17,14 @@ class SECP256K1(EllipticCurve):
         Gy = 0x483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8
         self.__gen = self(Gx, Gy)
         self.__order = 0xfffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141
+
+    def __call__(self, x, y):
+        if self.is_on_curve(x, y):
+            return SECP256K1Point(x, y, 1, self)
+        raise TypeError(f"Coordinates ({x} : {y} : 1) do not define a point on {self}")
+
+    def zero(self):
+        return SECP256K1Point(0, 1, 0, self)
 
     def gen(self):
         return self.__gen
