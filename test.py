@@ -1,4 +1,5 @@
 from utils import *
+from mitchain import *
 
 # test p4
 Fp = GF(13)
@@ -114,3 +115,8 @@ P = E(15, 86)
 for i in range(1, 7):
     assert i * P != E.zero()
 assert 7 * P == E.zero()
+
+# test sec256k1 order
+E = SECP256K1()
+G = E.gen()
+assert E.order() * G == E.zero()
