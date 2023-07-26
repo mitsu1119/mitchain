@@ -37,6 +37,8 @@ class IntegerModRingElement():
         raise TypeError(f"Unsupported operand for *: '{str(self.parent)}' and '{str(other.parent)}'")
     def __pow__(self, exponent: int):
         return self.__class__(pow(self.value, exponent, self.order), self.parent)
+    def __rmul__(self, other: int):
+        return self.__class__((self.value * other) % self.order, self.parent)
 
     # --------------------------------------------------------------------------------------------
     # Unit Operators

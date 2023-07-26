@@ -62,6 +62,15 @@ class EllipticCurvePoint:
         if self.is_calcable(other):
             return self + (-other)
         raise TypeError(f"Unsupported operand for -: '{str(self.parent)}' and '{str(other.parent)}'")
+    def __rmul__(self, coef: int):
+        res = self.parent.zero()
+        P = self
+        while coef:
+            if coef % 2:
+                res = res + P
+            P = P + P
+            coef >>= 1
+        return res
 
     # --------------------------------------------------------------------------------------------
     # Unit Operators
