@@ -108,3 +108,9 @@ assert 2 * E(47, 71) == E(36, 111)
 assert 4 * E(47, 71) == E(194, 51)
 assert 8 * E(47, 71) == E(116, 55)
 assert 21 * E(47, 71) == E.zero()
+
+# test p58 (practice 5)
+P = E(15, 86)
+for i in range(1, 7):
+    assert i * P != E.zero()
+assert 7 * P == E.zero()
