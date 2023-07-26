@@ -115,4 +115,10 @@ class EllipticCurve:
         return False
 
     def __str__(self):
-        return f"Elliptic Curve defined by y^2 = x^3 + {self.a}*x + {self.b} over {self.base}"
+        res = "Elliptic Curve defined by y^2 = x^3"
+        if self.a != self.base(0):
+            res += f" + {self.a}*x"
+        if self.b != self.base(0):
+            res += f" + {self.b}"
+        res += f" over {self.base}"
+        return res
