@@ -150,3 +150,10 @@ r = 0xeff69ef2b1bd93a66ed5219add4fb51e11a840f404876325a1e8ffe0529a2c
 s = 0xc7207fee197d27c618aea621406f6bf5ef6fca38681d82b2f06fddbdce6feab6
 sig = ECDSASignature(r, s)
 assert ecdsa.verify(P, z, sig)
+
+# test p71 (practice 7)
+secret = 12345
+z = int.from_bytes(hash256(b"Programming Bitcoin!"), "big")
+priv = ecdsa.gen_private_key(secret)
+sig = priv.sign(z)
+assert ecdsa.verify(priv.point, z, sig)
