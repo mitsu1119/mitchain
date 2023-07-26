@@ -10,6 +10,9 @@ class FpElement(IntegerModRingElement):
         raise TypeError(f"Unsupported operand for //: '{str(self.parent)}' and '{str(other.parent)}'")
     def inv(self):
         return FpElement(pow(self.value, -1, self.order), self.parent)
+    def __itruediv__(self, other):
+        self = self / other
+        return self
 
 # --------------------------------------------------------------------------------------------
 # Type Factory

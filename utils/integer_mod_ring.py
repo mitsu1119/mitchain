@@ -41,6 +41,19 @@ class IntegerModRingElement():
         return self.__class__((self.value * other) % self.order, self.parent)
 
     # --------------------------------------------------------------------------------------------
+    # Arithmetic and Assignment Operators
+    # --------------------------------------------------------------------------------------------
+    def __iadd__(self, other):
+        self = self + other
+        return self
+    def __isub__(self, other):
+        self = self - other
+        return self
+    def __imul__(self, other):
+        self = self * other
+        return self
+
+    # --------------------------------------------------------------------------------------------
     # Unit Operators
     # --------------------------------------------------------------------------------------------
     def __pos__(self):
